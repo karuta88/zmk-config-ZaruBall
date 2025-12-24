@@ -1,6 +1,7 @@
 // スクロール量の設定
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #include <behaviors/rgbled_widget.dtsi>
+#include <layout_shift_kp_override.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
@@ -54,14 +55,14 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&mt LALT LANG2>, <&mo RAISE>, <&mo MOUSE>;
+            bindings = <&mt LALT CAPS>, <&mo RAISE>, <&mo MOUSE>;
         };
 
         td1: tap_dance_1 {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&mt RCTL LANG1>, <&mo RAISE>, <&mo MOUSE>;
+            bindings = <&tog_ls>, <&mo RAISE>, <&mo MOUSE>;
         };
 
         // Customed Hold-Tap for SandS
@@ -75,6 +76,22 @@
             bindings = <&kp>, <&kp>;
 
             display-name = "SandS";
+        };
+
+        // Keep the original key_press behavior for ZMK core components
+
+        original_key_press: original_key_press {
+            compatible = "zmk,behavior-key-press";
+            #binding-cells = <1>;
+            label = "KEY_PRESS";
+        };
+
+        // Override the existing &kp behavior to use our custom implementation
+
+        kp: key_press {
+            compatible = "zmk,behavior-layout-shift-key-press";
+            #binding-cells = <1>;
+            label = "LAYOUT_SHIFT_KEY_PRESS";
         };
     };
 };
@@ -119,8 +136,8 @@
             sensor-bindings = <&scroll_down_up>;
             bindings = <
 &kp ESC    &kp N1      &kp N2  &kp N3    &kp N4     &kp N5                            &kp KP_N7     &kp KP_N8  &kp KP_N9   &kp KP_DIVIDE                 &kp NUMBER_6  &kp N7  &kp N8     &kp N9   &kp N0    &kp MINUS
-&kp TAB    &kp Q       &kp W   &kp E     &kp R      &kp T                             &kp KP_N4     &kp KP_N5  &kp KP_N6   &kp KP_MULTIPLY               &kp Y         &kp U   &kp I      &kp O    &kp P     &kp EQUAL
-&kp CAPS   &kp A       &kp S   &kp D     &kp F      &kp G               &kp INS       &kp KP_N1     &kp KP_N2  &kp KP_N3   &kp KP_MINUS       &kp LBKT   &kp H         &kp J   &kp K      &kp L    &kp SEMI  &kp SQT
+&kp INS    &kp Q       &kp W   &kp E     &kp R      &kp T                             &kp KP_N4     &kp KP_N5  &kp KP_N6   &kp KP_MULTIPLY               &kp Y         &kp U   &kp I      &kp O    &kp P     &kp EQUAL
+&kp TAB    &kp A       &kp S   &kp D     &kp F      &kp G               &kp INT4      &kp KP_N1     &kp KP_N2  &kp KP_N3   &kp KP_MINUS       &kp LBKT   &kp H         &kp J   &kp K      &kp L    &kp SEMI  &kp SQT
 &kp LSHFT  &kp Z       &kp X   &kp C     &kp V      &kp B               &kp GRAVE     &kp KP_ENTER  &kp KP_N0  &kp KP_DOT  &kp KP_PLUS        &kp RBKT   &kp N         &kp M   &kp COMMA  &kp DOT  &kp FSLH  &lt SCROLL BACKSLASH
 &td0       &kp C_MUTE          &kp LWIN  &kp LCTRL  &SandS LSHFT SPACE  &mo SCROLL                                                            &lt 3 RET  &kp BSPC                                            &td1
             >;
