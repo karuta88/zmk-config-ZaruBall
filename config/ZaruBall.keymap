@@ -18,6 +18,7 @@
 #define SCROLL   2
 
 &trackball_listener {
+    # Enter MOUSE on trackball movement; long timeout so it won't auto-exit quickly
     input-processors =  <
                          &zip_temp_layer MOUSE 500
                         >;
@@ -96,7 +97,7 @@
     };
 };
 
-&sl { release-after-ms = <250>; }; // time needed for double click (for mkp_exit_AML)
+&sl { }; // sticky layer (auto-release disabled for mkp_exit_AML)
 / {
     macros {
         // When in AML, move to default layer when key (except mouse button) pressed
@@ -151,7 +152,7 @@
 &to_layer_0 TAB     &to_layer_0 Q   &to_layer_0 W   &to_layer_0 E   &to_layer_0 R   &to_layer_0 T                      &trans  &trans  &trans  &trans                     &to_layer_0 Y   &to_layer_0 U   &to_layer_0 I   &to_layer_0 O       &to_layer_0 P             &to_layer_0 EQUAL
 &to_layer_0 CAPS    &to_layer_0 A   &mkp RCLK       &mkp MCLK       &mkp LCLK       &msc SCRL_UP    &msc SCRL_LEFT     &trans  &trans  &trans  &trans    &msc SCRL_LEFT   &msc SCRL_UP    &mkp LCLK       &mkp MCLK       &mkp RCLK           &to_layer_0 SINGLE_QUOTE  &to_layer_0 SEMICOLON
 &to_layer_0 LSHIFT  &to_layer_0 Z   &to_layer_0 X   &mkp MB4        &mkp MB5        &msc SCRL_DOWN  &msc SCRL_RIGHT    &trans  &trans  &trans  &trans    &msc SCRL_RIGHT  &msc SCRL_DOWN  &mkp MB4        &mkp MB5        &to_layer_0 PERIOD  &to_layer_0 SLASH         &lt SCROLL BACKSLASH
-&trans              &trans                          &trans          &trans          &trans          &trans                                               &trans           &trans                                                                                        &trans
+&trans              &trans                          &trans          &trans          &trans          &trans                                               &trans           &trans                                                                                        &tog MOUSE
             >;
         };
 
