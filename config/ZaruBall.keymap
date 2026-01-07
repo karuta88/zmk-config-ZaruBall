@@ -21,7 +21,7 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 
 &trackball_listener {
-    # Enter MOUSE on trackball movement; long timeout so it won't auto-exit quickly
+    # Enter MOUSE on trackball movement long timeout so it won't auto-exit quickly
     input-processors =  <
                          &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
                          &zip_temp_layer MOUSE 500
