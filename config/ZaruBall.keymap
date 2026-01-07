@@ -18,7 +18,7 @@
 #define SCROLL   2
 
 &trackball_listener {
-    # Enter MOUSE on trackball movement; long timeout so it won't auto-exit quickly
+    # Enter MOUSE on trackball movement long timeout so it won't auto-exit quickly
     input-processors =  <
                          &zip_temp_layer MOUSE 500
                         >;
