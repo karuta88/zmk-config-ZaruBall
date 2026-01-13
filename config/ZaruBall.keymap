@@ -52,7 +52,7 @@
         input-processors = <
                             &zip_xy_scaler 1 6
         >;
-    }
+    };
 };
 
 &mkp_input_listener {
