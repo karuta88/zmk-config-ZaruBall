@@ -19,11 +19,22 @@
 #define ADJUST   4
 #define SCROLL   2
 
+&zip_temp_layer {
+    excluded-positions = <
+        45 // J
+        46 // K
+        47 // L
+        50 // Shift
+        71 // Ctrl
+
+    >;
+};
+
 &trackball_listener {
     // Enter MOUSE on trackball movement long timeout so it won't auto-exit quickly
 
     input-processors = <
-                         &zip_temp_layer MOUSE 500
+                         &zip_temp_layer MOUSE 100000
     >;
 
     scroller {
@@ -34,6 +45,12 @@
                             &zip_xy_to_scroll_mapper
         >;
     };
+};
+
+&mkp_input_listener {
+    input-processors = <
+                         &zip_temp_layer MOUSE 500
+    >;
 };
 
 / {
