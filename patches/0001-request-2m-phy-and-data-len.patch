@@ -1,0 +1,128 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: ZaruBall <zarbub@example.com>
+Date: Tue, 13 Jan 2026 00:00:00 +0000
+Subject: [PATCH] Request 2M PHY and max data length on connection
+
+This patch adds an application helper that requests a 2M PHY and requests
+an increased data length from user-space right after a BLE connection is
+established. Place these changes into your ZMK application tree (top of
+ZMK repo) so they are built into the firmware.
+
+The exact Zephyr API names for PHY/data-length can vary between Zephyr
+versions. The implementation below uses the common APIs `bt_conn_le_phy_update`
+and `bt_conn_set_data_len`. If your Zephyr version uses different
+function names, adapt accordingly.
+
+---
+ app/src/phy_update.c | 76 ++++++++++++++++++++++++++++++++++++++++++
+ app/CMakeLists.txt  |  3 ++-
+ 2 files changed, 78 insertions(+), 1 deletion(-)
+ create mode 100644 app/src/phy_update.c
+--- a/app/src/phy_update.c
++++ b/app/src/phy_update.c
+@@
++/*
++ * Request 2M PHY and increase data length after connection.
++ *
++ * Notes:
++ * - This file is intended to be copied into the ZMK application's
++ *   source tree (app/src/) and built as part of the firmware.
++ * - Zephyr API names can differ between versions. If build fails,
++ *   check for the correct API names in your Zephyr include directory
++ *   (bluetooth/conn.h, bluetooth/hci.h).
++ */
++
++#include <zephyr/kernel.h>
++#include <zephyr/logging/log.h>
++#include <bluetooth/bluetooth.h>
++#include <bluetooth/conn.h>
++#include <bluetooth/hci.h>
++
++LOG_MODULE_REGISTER(phy_update, LOG_LEVEL_INF);
++
++/* Desired parameters */
++#define DESIRED_PHY  BT_HCI_LE_PHY_2M
++/* Typical maximum octets/time (may vary by controller): 251 octets / 2120 us */
++#define DESIRED_TX_OCTETS 251
++#define DESIRED_TX_TIME   2120
++
++static void conn_connected(struct bt_conn *conn, uint8_t err)
++{
++    if (err) {
++        LOG_INF("Connected failed (err %u)", err);
++        return;
++    }
++
++    LOG_INF("Connected: requesting PHY/data length...");
++
++#if defined(CONFIG_BT_USER_PHY_UPDATE)
++    /* Request 2M PHY if supported by host/controller. */
++    int perr = 0;
++
++    /* Many Zephyr versions provide bt_conn_le_phy_update() */
++    if (IS_ENABLED(CONFIG_BT_USER_PHY_UPDATE)) {
++        /* Try calling the common helper if available. */
++#if defined(CONFIG_BT_CTLR_PHY_2M) || defined(BT_HCI_LE_PHY_2M)
++        /* Function name can vary: bt_conn_le_phy_update or bt_conn_set_phy */
++        if (bt_conn_le_phy_update != NULL) {
++            perr = bt_conn_le_phy_update(conn, DESIRED_PHY, DESIRED_PHY);
++        } else if (bt_conn_set_phy != NULL) {
++            perr = bt_conn_set_phy(conn, DESIRED_PHY, DESIRED_PHY);
++        }
++#else
++        /* If no compile-time PHY constant, attempt a generic call */
++        if (bt_conn_le_phy_update != NULL) {
++            perr = bt_conn_le_phy_update(conn, DESIRED_PHY, DESIRED_PHY);
++        }
++#endif
++
++        if (perr == 0) {
++            LOG_INF("PHY update request sent");
++        } else {
++            LOG_INF("PHY update request failed: %d", perr);
++        }
++    }
++#endif /* CONFIG_BT_USER_PHY_UPDATE */
++
++#if defined(CONFIG_BT_USER_DATA_LEN)
++    /* Request larger data length from the peer */
++    int derr = 0;
++
++    /* Common helper name is bt_conn_set_data_len (may vary) */
++    if (bt_conn_set_data_len != NULL) {
++        derr = bt_conn_set_data_len(conn, DESIRED_TX_OCTETS, DESIRED_TX_TIME);
++    } else if (bt_conn_le_set_data_len != NULL) {
++        derr = bt_conn_le_set_data_len(conn, DESIRED_TX_OCTETS, DESIRED_TX_TIME);
++    }
++
++    if (derr == 0) {
++        LOG_INF("Data length update request sent");
++    } else {
++        LOG_INF("Data length update request failed: %d", derr);
++    }
++#endif /* CONFIG_BT_USER_DATA_LEN */
++}
++
++static void conn_disconnected(struct bt_conn *conn, uint8_t reason)
++{
++    ARG_UNUSED(conn);
++    LOG_INF("Disconnected (reason %u)", reason);
++}
++
++static struct bt_conn_cb conn_callbacks = {
++    .connected = conn_connected,
++    .disconnected = conn_disconnected,
++};
++
++static int phy_update_init(void)
++{
++    bt_conn_cb_register(&conn_callbacks);
++    LOG_INF("phy_update initialized");
++    return 0;
++}
++
++SYS_INIT(phy_update_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
++
++
+---
+*** End Patch
