@@ -1,14 +1,14 @@
 manifest:
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
+    - name: karuta88
+      url-base: https://github.com/karuta88
     - name: caksoylar
       url-base: https://github.com/caksoylar
     - name: kot149
       url-base: https://github.com/kot149
   projects:
     - name: zmk
-      remote: zmkfirmware
+      remote: karuta88
       revision: main
       import: app/west.yml
     - name: zmk-rgbled-widget
