@@ -49,7 +49,7 @@
     snipe {
         layers = <SNIPE>;
         input-processors = <
-                            &zip_xy_scaler 1 10
+                            &zip_xy_scaler 1 8
         >;
     };
 };
