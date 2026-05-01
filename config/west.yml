@@ -8,6 +8,8 @@ manifest:
       url-base: https://github.com/caksoylar
     - name: kot149
       url-base: https://github.com/kot149
+    - name: amgskobo
+      url-base: https://github.com/amgskobo
   projects:
     - name: zmk
       remote: karuta88
@@ -22,5 +24,8 @@ manifest:
     - name: zmk-layout-shift
       remote: kot149
       revision: v1
+    - name: zmk-input-inertia
+      remote: amgskobo
+      revision: main
   self:
     path: config
