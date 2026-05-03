@@ -1,6 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h> // included when matrix transform added
 #include <physical_layouts.dtsi> // When using keys property include needed
-#include <zmk-input-inertia/input/processor/input_inertia.dtsi> // ZMK Inertia Input Processor
 
 // chosen node
 / {
@@ -225,21 +224,4 @@
     status = "disabled";
     device = <&trackball>;
     };
-};
-
-&zip_inertia {
-    // 慣性が始まるまでの待ち時間 (推奨: センサーのポーリングレートの2倍以上)
-    trigger-ms = <35>; 
-
-    // --- マウス移動の設定 ---
-    move-decay-factor-int = <90>;       // 減衰率 (0-100)
-    move-report-interval-ms = <35>;     // レポート送信間隔 (ms)
-    move-threshold-start = <15>;        // 慣性が発動する最小移動量 (pix/report)
-    move-threshold-stop = <1>;          // 慣性が停止する移動量 (pix/report)
-
-    // --- スクロールの設定 ---
-    scroll-decay-factor-int = <85>;    // スクロール減衰率
-    scroll-report-interval-ms = <65>;  // スクロールレポート間隔 (ms)
-    scroll-threshold-start = <2>;      // 慣性が発動する最小スクロール量 (pix/report)
-    scroll-threshold-stop = <0>;       // 慣性が停止するスクロール量 (pix/report)
 };
