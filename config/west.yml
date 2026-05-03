@@ -8,8 +8,8 @@ manifest:
       url-base: https://github.com/caksoylar
     - name: kot149
       url-base: https://github.com/kot149
-#    - name: amgskobo
-#      url-base: https://github.com/amgskobo
+    - name: amgskobo
+      url-base: https://github.com/amgskobo
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -24,9 +24,8 @@ manifest:
     - name: zmk-layout-shift
       remote: kot149
       revision: v1
-#    zephyr 4.1にしか対応していないため外す
-#    - name: zmk-input-inertia
-#      remote: amgskobo
-#      revision: main
+    - name: zmk-input-inertia
+      remote: amgskobo
+      revision: main
   self:
     path: config
