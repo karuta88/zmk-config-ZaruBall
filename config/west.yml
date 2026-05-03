@@ -1,7 +1,7 @@
 manifest:
   remotes:
-    - name: karuta88
-      url-base: https://github.com/karuta88
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
     - name: badjeff
       url-base: https://github.com/badjeff
     - name: caksoylar
@@ -12,7 +12,7 @@ manifest:
       url-base: https://github.com/amgskobo
   projects:
     - name: zmk
-      remote: karuta88
+      remote: zmkfirmware
       revision: v0.3
       import: app/west.yml
     - name: zmk-pmw3610-driver
