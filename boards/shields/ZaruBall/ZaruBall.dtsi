@@ -10,6 +10,10 @@
     };
 };
 
+&uicr {
+    nfct-pins-as-gpios;
+};
+
 // physical layouts (key propretyあり)
 / {
     physical_layout0: physical_layout0 {
