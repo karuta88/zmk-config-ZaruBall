@@ -17,6 +17,7 @@
 #define SNIPE    5
 
 &zip_temp_layer {
+    require-prior-idle-ms = <200>;
     excluded-positions = <
         33 // A
         45 // J
