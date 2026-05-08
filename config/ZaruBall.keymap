@@ -5,6 +5,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <behaviors/lang_toggle.dtsi>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 
@@ -87,11 +88,21 @@
             tap-ms = <20>; // スクロールのタップ時間
         };
 
+        lang_alt: lang_alt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&lang_tog>;
+
+            display-name = "Lang/Alt";
+        };
+
         td0: tap_dance_0 {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&mt LALT GRAVE>, <&mo RAISE>, <&mo MOUSE>;
+            bindings = <&lang_alt LALT 0>, <&mo RAISE>, <&mo MOUSE>;
         };
 
         td1: tap_dance_1 {
