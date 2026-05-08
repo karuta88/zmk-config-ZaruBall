@@ -91,14 +91,14 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&mt LALT GRAVE>, <&mo RAISE>, <&mo MOUSE>;
+            bindings = <&mt LALT LANG1>, <&kp LANG2>, <&mo 3>;
         };
 
         td1: tap_dance_1 {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&tog_ls_on>, <&mo RAISE>, <&mo MOUSE>;
+            bindings = <&tog_ls_on>, <&mo 1>, <&mo 3>;
         };
 
         // Customed Hold-Tap for SandS
