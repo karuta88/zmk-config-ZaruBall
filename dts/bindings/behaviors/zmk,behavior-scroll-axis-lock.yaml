@@ -1,0 +1,10 @@
+description: Momentary scroll axis lock behavior
+
+compatible: "zmk,behavior-scroll-axis-lock"
+
+include: zero_param.yaml
+
+properties:
+  axis:
+    type: int
+    required: true
