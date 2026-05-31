@@ -2,4 +2,4 @@ description: Scroll mapper with a behavior-controlled axis lock
 
 compatible: "zmk,input-processor-scroll-axis-lock-mapper"
 
-include: input-processor.yaml
+include: ip_zero_param.yaml

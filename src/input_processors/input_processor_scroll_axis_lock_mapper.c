@@ -7,7 +7,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <zephyr/logging/log.h>
 
-#include <zmk/input_processor.h>
+#include <drivers/input_processor.h>
 #include <zmk/scroll_axis_lock.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
