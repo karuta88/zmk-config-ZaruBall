@@ -1,0 +1,17 @@
+/ {
+    behaviors {
+        scroll_v: scroll_axis_lock_vertical {
+            compatible = "zmk,behavior-scroll-axis-lock";
+            #binding-cells = <0>;
+            axis = <1>;
+            display-name = "Vertical Scroll Lock";
+        };
+
+        scroll_h: scroll_axis_lock_horizontal {
+            compatible = "zmk,behavior-scroll-axis-lock";
+            #binding-cells = <0>;
+            axis = <2>;
+            display-name = "Horizontal Scroll Lock";
+        };
+    };
+};

@@ -6,8 +6,10 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <behaviors/lang_toggle.dtsi>
+#include <behaviors/scroll_axis_lock.dtsi>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #define BASE     0
 #define MOUSE    1
@@ -33,6 +35,15 @@
 
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 
+/ {
+    input_processors {
+        zip_scroll_axis_lock_mapper: zip_scroll_axis_lock_mapper {
+            compatible = "zmk,input-processor-scroll-axis-lock-mapper";
+            #input-processor-cells = <0>;
+        };
+    };
+};
+
 &trackball_listener {
     // Enter MOUSE on trackball movement long timeout so it won't auto-exit quickly
 
@@ -41,12 +52,15 @@
                          &zip_temp_layer MOUSE 100000
     >;
 
+    // Add &scroll_v or &scroll_h to your keymap to constrain trackball scrolling
+    // while the SCROLL layer is active, without consuming extra layers.
+
     scroller {
         layers = <SCROLL>;
         input-processors = <
                             &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
                             &zip_xy_scaler 1 20
-                            &zip_xy_to_scroll_mapper
+                            &zip_scroll_axis_lock_mapper
         >;
     };
 
