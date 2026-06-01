@@ -237,7 +237,7 @@
 
         raise_layer {
             display-name = "Raise";
-            sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
+            sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DEC>;
             bindings = <
 &trans  &none  &none  &none      &none      &none                              &trans  &trans  &trans  &trans               &none     &none     &none     &none      &none  &none
 &trans  &none  &none  &none      &none      &none                              &trans  &trans  &trans  &trans               &none     &none     &none     &none      &none  &none
