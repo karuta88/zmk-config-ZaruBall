@@ -189,12 +189,12 @@
 }; // sticky layer (auto-release disabled for mkp_exit_AML)
 / {
     macros {
-        // When in AML, move to default layer when key (except mouse button) pressed
+        // Send the key before leaving AML so temp-layer cooldown starts immediately.
 
         to_layer_0: to_layer_0 {
             compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
-            bindings = <&to BASE &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
+            bindings = <&macro_param_1to1 &kp MACRO_PLACEHOLDER &to BASE>;
             label = "TO_layer_0";
         };
 
