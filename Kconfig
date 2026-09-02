@@ -1,20 +1,3 @@
-DT_COMPAT_ZMK_BEHAVIOR_LANG_TOGGLE := zmk,behavior-lang-toggle
-
-config ZMK_BEHAVIOR_LANG_TOGGLE
-    bool
-    select ZMK_HID_KEYBOARD_NKRO_EXTENDED_REPORT if ZMK_HID_REPORT_TYPE_NKRO
-    default $(dt_compat_enabled,$(DT_COMPAT_ZMK_BEHAVIOR_LANG_TOGGLE))
-
-if ZMK_BEHAVIOR_LANG_TOGGLE
-
-config ZMK_BEHAVIOR_LANG_TOGGLE_MAX_HELD
-    int "Maximum simultaneously held language toggle keys"
-    range 1 16
-    default 4
-
-endif # ZMK_BEHAVIOR_LANG_TOGGLE
-
-
 DT_COMPAT_ZMK_BEHAVIOR_SCROLL_AXIS_LOCK := zmk,behavior-scroll-axis-lock
 DT_COMPAT_ZMK_INPUT_PROCESSOR_SCROLL_AXIS_LOCK_MAPPER := zmk,input-processor-scroll-axis-lock-mapper
 
