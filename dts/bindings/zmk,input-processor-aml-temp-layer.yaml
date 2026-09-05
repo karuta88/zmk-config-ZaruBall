@@ -1,0 +1,29 @@
+description: Temporary pointer layer that rearms after the pointer has been idle
+
+compatible: "zmk,input-processor-aml-temp-layer"
+
+include: ip_two_param.yaml
+
+properties:
+  require-prior-idle-ms:
+    type: int
+    required: false
+    default: 0
+    description: Time after the last keystroke before the layer can activate
+
+  rearm-after-pointer-idle-ms:
+    type: int
+    required: true
+    description: Pointer idle time required after a keyboard exit before the layer can activate again
+
+  rearm-positions:
+    type: array
+    required: false
+    default: []
+    description: Key positions that require pointer idle before the layer can activate again
+
+  excluded-positions:
+    type: array
+    required: false
+    default: []
+    description: Key positions that do not deactivate the layer

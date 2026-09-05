@@ -20,25 +20,29 @@
 #define SCROLL   2
 #define SNIPE    5
 
-&zip_temp_layer {
-    require-prior-idle-ms = <200>;
-    excluded-positions = <
-        33 // A
-        36 // F & Shift
-        45 // J & Shift
-        46 // K
-        47 // L
-        48 // AML exit
-        71 // Ctrl
-    >;
-};
-
 // スクロール量の設定
 
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 
 / {
     input_processors {
+        aml_temp_layer: aml_temp_layer {
+            compatible = "zmk,input-processor-aml-temp-layer";
+            #input-processor-cells = <2>;
+            require-prior-idle-ms = <200>;
+            rearm-after-pointer-idle-ms = <100>;
+            rearm-positions = <48>; // AML exit
+            excluded-positions = <
+                33 // A
+                36 // F & Shift
+                45 // J & Shift
+                46 // K
+                47 // L
+                48 // AML exit
+                71 // Ctrl
+            >;
+        };
+
         zip_scroll_axis_lock_mapper: zip_scroll_axis_lock_mapper {
             compatible = "zmk,input-processor-scroll-axis-lock-mapper";
             #input-processor-cells = <0>;
@@ -51,7 +55,7 @@
 
     input-processors = <
                          &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
-                         &zip_temp_layer MOUSE 100000
+                         &aml_temp_layer MOUSE 100000
     >;
 
     // Add &scroll_v or &scroll_h to your keymap to constrain trackball scrolling
@@ -77,7 +81,7 @@
 
 &mkp_input_listener {
     input-processors = <
-                         &zip_temp_layer MOUSE 100000
+                         &aml_temp_layer MOUSE 100000
     >;
 };
 
