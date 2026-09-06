@@ -192,7 +192,7 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&tog_ls_on>, <&kp SQT>;
+            bindings = <&kp SQT>, <&tog_ls_on>;
 
             label = "TD2";
         };
