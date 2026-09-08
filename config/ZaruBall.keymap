@@ -39,6 +39,7 @@
                 46 // K
                 47 // L
                 48 // AML exit
+                50 // Left Shift
                 71 // Ctrl
             >;
         };
