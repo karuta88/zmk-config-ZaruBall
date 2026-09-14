@@ -34,7 +34,6 @@
             rearm-positions = <48>; // AML exit
             excluded-positions = <
                 33 // A
-                36 // F & Shift
                 45 // J & Shift
                 46 // K
                 47 // L
